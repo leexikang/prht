@@ -3,10 +3,20 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Repository\PlaceRepository;
 use Illuminate\Http\Request;
 
 class PlacesController extends Controller {
 
+	/**
+	 * @var PlaceRepository
+	 */
+	private $place;
+
+	public function __construct(PlaceRepository $place){
+
+		$this->place = $place;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +24,9 @@ class PlacesController extends Controller {
 	 */
 	public function index()
 	{
-		//
+//		return $this->place->getAll();
+		$places = $this->place->returnWithPaginate(10);
+		return view('places.index', ['places' => $places ]);
 	}
 
 	/**

@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'PagesController@index');
+Route::get('/places', 'PlacesController@index');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
