@@ -20,6 +20,8 @@
 </head>
 <body>
 
+	@include('layouts.partials.nav')
+
 	@yield('content')
 
 	<!-- Scripts -->
