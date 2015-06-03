@@ -13,6 +13,7 @@ class PlacesTableSeeder extends Seeder
     public function run()
     {
         $city = ['Mandalay', 'Yangon', 'Sagaing'];
+        $images = [1, 2, 3];
         $user = User::lists('id');
         $faker = Faker::create();
 
@@ -24,6 +25,7 @@ class PlacesTableSeeder extends Seeder
                 'description' => $faker->paragraph(2),
                 'state' => $faker->randomElement($city),
                 'city' => $faker->randomElement($city),
+                'photo' => $faker->randomElement($images) . ".jpg",
                 'user_id' => $faker->randomElement($user)
             ]);
         }

@@ -18,7 +18,24 @@ class PlaceRepository {
 
      public function create($input){
 
-        return $input;
+         $place = new Place();
+         $place->name = $input['name'];
+         $place->address = $input['address'];
+         $place->description = $input['description'];
+         $place->state = $input['state'];
+         $place->city = $input['city'];
+         $place->user_id = 11; // *** sub ****
+
+         if($photo = $input['photo']){
+
+             $name = $photo->getClientOriginalName();
+             $photo->move(public_path() . "/images", $name);
+             $place->photo = $name;
+         }
+
+         $place->save();
+
+         return $input;
 
     }
 
