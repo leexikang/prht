@@ -9,7 +9,7 @@
                     <div class="row">
 
                         <div class="col-sm-3">
-                            <img src="images/1.jpg" class="img-responsive"/>
+                            <img src="{{ asset('images/1.jpg') }}" class="img-responsive"/>
                         </div>
 
                         <div class="col-sm-8">

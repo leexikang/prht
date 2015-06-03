@@ -3,8 +3,9 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\CreatePlaceRequest;
 use App\Repository\PlaceRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;use Illuminate\Support\Facades\Input;
 
 class PlacesController extends Controller {
 
@@ -12,6 +13,9 @@ class PlacesController extends Controller {
 	 * @var PlaceRepository
 	 */
 	private $place;
+	/**
+	 * @var CreatePlaceRequest
+	 */
 
 	public function __construct(PlaceRepository $place){
 
@@ -36,17 +40,19 @@ class PlacesController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('places.create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param CreatePlaceRequest $request
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreatePlaceRequest $request)
 	{
-		//
+		return $this->place->create($request->all());
+//		return Input::all();
 	}
 
 	/**

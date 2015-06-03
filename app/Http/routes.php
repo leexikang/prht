@@ -14,6 +14,7 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/places', 'PlacesController@index');
+Route::resource('places', 'PlacesController');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

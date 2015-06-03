@@ -16,4 +16,10 @@ class PlaceRepository {
         return Place::paginate($limit);
     }
 
+     public function create($input){
+
+        return $input;
+
+    }
+
 }
