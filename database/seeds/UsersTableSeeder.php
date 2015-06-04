@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder
             User::create([
                 'name' => 'Minsan',
                 'password' => 'pass',
-                'email' => $faker->email
+                'email' => 'leexikang@gmail.com'
             ]);
     }
 }

@@ -3,25 +3,21 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\CreatePlaceRequest;
-use App\Repository\PlaceRepository;
-use Illuminate\Support\Facades\App;
+use App\Repository\ImageRepository;
+use Illuminate\Http\Request;
 
-class PlacesController extends Controller {
-
-	/**
-	 * @var PlaceRepository
-	 */
-	private $place;
+class ImagesController extends Controller {
 
 	/**
-	 * @var CreatePlaceRequest
+	 * @var ImageRepository
 	 */
+	private $image;
 
-	public function __construct(PlaceRepository $place){
+	public function __construct(ImageRepository $image){
 
-		$this->place = $place;
+		$this->image = $image;
 	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -29,9 +25,7 @@ class PlacesController extends Controller {
 	 */
 	public function index()
 	{
-//		return $this->place->getAll();
-		$places = $this->place->returnWithPaginate(10);
-		return view('places.index', ['places' => $places ]);
+		//
 	}
 
 	/**
@@ -41,19 +35,20 @@ class PlacesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('places.create');
+		return view('places.uploadImages');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param CreatePlaceRequest $request
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function store(CreatePlaceRequest $request)
+	public function store(Request $request)
 	{
-		return $this->place->create($request->all());
-//		return Input::all();
+//		return $request->all();
+		$this->image->create($request->file('photos'));
+
 	}
 
 	/**
@@ -64,7 +59,7 @@ class PlacesController extends Controller {
 	 */
 	public function show($id)
 	{
-		return view('places.show');
+		//
 	}
 
 	/**
@@ -98,11 +93,6 @@ class PlacesController extends Controller {
 	public function destroy($id)
 	{
 		//
-	}
-
-	public function uploadImages(){
-
-
 	}
 
 }

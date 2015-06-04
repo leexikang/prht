@@ -15,6 +15,13 @@
 Route::get('/', 'PagesController@index');
 Route::get('/places', 'PlacesController@index');
 Route::resource('places', 'PlacesController');
+Route::get('uploadimages','ImagesController@create');
+
+Route::post('uploadimages', [
+    "uses" => "ImagesController@store",
+   "as" => "uploadimages_path"
+]);
+
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

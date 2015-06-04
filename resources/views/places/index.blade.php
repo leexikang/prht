@@ -9,7 +9,7 @@
                     <div class="row">
 
                         <div class="col-sm-3">
-                            <img src="{{ asset('images/1.jpg') }}" class="img-responsive"/>
+                            <img src="{{ asset('images/'. $place->photo ) }}" class="img-responsive"/>
                         </div>
 
                         <div class="col-sm-8">
@@ -25,7 +25,9 @@
                                 <dt> State</dt>
                                 <dd> {{ $place->state }}</dd>
                                 <dt> Creator</dt>
-                                <dd> {{ $place['user']['name'] }} </dd>
+                                <dd> {{ $place['user']['name'] }}</dd>
+                                <dt></dt>
+                                <dd> <a href="{{url("places/" . $place->id )}}"> <small> READ MORE>> </small> </a> </dd>
                             </dl>
                         </div>
 
