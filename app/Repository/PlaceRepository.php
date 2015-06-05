@@ -2,6 +2,7 @@
 
 namespace app\Repository;
 use App\Place;
+use App\User;
 
 class PlaceRepository {
 
@@ -37,6 +38,11 @@ class PlaceRepository {
 
          return $input;
 
+    }
+
+    public function getById($input){
+
+        return Place::findOrFail($input);
     }
 
 }

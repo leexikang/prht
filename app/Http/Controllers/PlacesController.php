@@ -64,7 +64,9 @@ class PlacesController extends Controller {
 	 */
 	public function show($id)
 	{
-		return view('places.show');
+		$place = $this->place->getById($id);
+		$images = $place->images()->get();
+		return view('places.show', ['place' => $place, 'images' => $images]);
 	}
 
 	/**
