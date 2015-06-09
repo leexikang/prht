@@ -17,15 +17,29 @@ Route::get('/places', 'PlacesController@index');
 Route::resource('places', 'PlacesController');
 Route::get('uploadimages','ImagesController@create');
 
-Route::post('uploadimages', [
+Route::post('uploadimage', [
     "uses" => "ImagesController@store",
-   "as" => "uploadimages_path"
+   "as" => "uploadimage_path"
 ]);
 
+Route::get('uploadimage',function(){
+
+    return "Hell";
+
+});
+
+Route::get('test', function(){
+
+    Storage::makeDirectory("hello");
+
+});
+
+Route::patch("places/{id}/updateImage", 'PlacesController@updateImage');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
+
 
 

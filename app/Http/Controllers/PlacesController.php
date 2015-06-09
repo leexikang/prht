@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\CreatePlaceRequest;
 use App\Repository\PlaceRepository;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+
 
 class PlacesController extends Controller {
 
@@ -77,18 +79,21 @@ class PlacesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$place = $this->place->getById($id);
+		return view('places.edit', ['place' => $place]);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 * @param CreatePlaceRequest $request
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, CreatePlaceRequest $request)
 	{
-		//
+		$this->place->update($id, $request->all());
+		return Redirect::back();
 	}
 
 	/**
@@ -102,8 +107,11 @@ class PlacesController extends Controller {
 		//
 	}
 
-	public function uploadImages(){
+	public function updateImage($id, Request $request){
 
+//		return $request->file('photo');
+		$this->place->updateImage($id, $request->file('photo'));
+		return Redirect::back();
 
 	}
 

@@ -2,12 +2,16 @@
 
 @section('content')
 
+
     <div class="container-fluid">
+
+        @include('places.updateImage');
         <div class="row">
             <div class="col-sm-6 col-sm-offset-1">
-                {!! Form::open(['method' => 'POST',
-                'files'=> 'true',
-                'action' => 'PlacesController@store'
+
+                {!! Form::model($place,
+                ['method' => 'PATCH',
+                 'route' => ['places.update', $place->id]
                 ]) !!}
 
                 @include('places.formElements')

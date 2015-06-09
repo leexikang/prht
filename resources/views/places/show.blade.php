@@ -16,6 +16,7 @@
                              data-ratio = "3/2"
                              data-allowfullscreen="true">
 
+                            <img src="{!! asset('images/' . $place->photo) !!}"/>
                             @foreach($images as $image)
                             <img src="{!! asset('images/' . $image->image) !!}"/>
                             @endforeach
