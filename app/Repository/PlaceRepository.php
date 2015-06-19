@@ -1,23 +1,21 @@
 <?php
 
-namespace app\Repository;
+namespace App\Repository;
 
 use App\Place;
-use Storage;
+use File;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PlaceRepository {
 
 
     public function getAll()
     {
-
-        return Place::All();
     }
 
-    public function returnWithPaginate($limit)
+    public function returnWithPaginate()
     {
-
-        return Place::paginate($limit);
+        return Place::with('user')->paginate(10);
     }
 
     public function create($input)
@@ -33,6 +31,10 @@ class PlaceRepository {
         return Place::findOrFail($input);
     }
 
+    public  function getByUserId($id){
+
+        return Place::where("user_id" , $id)->with('user')->paginate(10);
+    }
     public function update($id, $input)
     {
 
@@ -61,9 +63,8 @@ class PlaceRepository {
     public function updateImage($id, $input){
 
         $place = $this->getById($id);
-        Storage::delete(public_path() . "/images/" . $place->photo);
-        $name = $this->createImage($input);
-        $place->photo = $name;
+        File::delete(public_path() . "/images/" ,$place->photo);
+        $place->photo = $this->createImage($input);
         $place->save();
 
     }
@@ -73,6 +74,18 @@ class PlaceRepository {
             $name = $photo->getClientOriginalName();
             $photo->move(public_path() . "/images", $name);
             return $name;
+    }
+
+    public function getByCityAndState($input){
+
+        $state = $input['state'];
+        $city = $input['city'];
+
+        if($city == "All"){
+
+            return Place::where('state', $state)->with('user')->paginate(10);
+        }
+        return Place::stateCity($state, $city)->with('user')->paginate(10);
     }
 }
 

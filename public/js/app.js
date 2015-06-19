@@ -2,14 +2,44 @@
 
 $(document).ready(function(){
 
-    $.ajaxPrefilter(function(options, originalOptions, xhr) {
-      var token = $('meta[name="csrf_token"]').attr('content');
 
-      if (token) {
-            return xhr.setRequestHeader('X-XSRF-TOKEN', token);
-      }
-        console.log(token);
-});
+    // Comfirm Delete moadal box
+
+    $(".delete-button").on('click', function(e){
+
+        $("#confirm-text").text("");
+
+        var link = $(this).data("link");
+        var confirmText = $(this).data("confirm");
+
+
+        $("#confirm-delete").attr("action", link);
+        $("#confirm-text").text(confirmText);
+
+    });
+
+    $("form #state").on('change', function(e){
+        $("form #city").attr("disabled", false);
+        $("form #search").attr("disabled", false);
+    });
+
+
+
+
+
+
+
+
+
+
+//    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+//      var token = $('meta[name="csrf_token"]').attr('content');
+//
+//      if (token) {
+//            return xhr.setRequestHeader('X-XSRF-TOKEN', token);
+//      }
+//        console.log(token);
+//});
 
     //Mutiple Photos Upload
     $("#photos").on('change', function(evt){

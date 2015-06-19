@@ -11,9 +11,15 @@
 |
 */
 
+Event::listen('illuminate.query', function($sql){
+
+    var_dump($sql);
+});
 
 Route::get('/', 'PagesController@index');
 Route::get('/places', 'PlacesController@index');
+Route::get('/home', 'PlacesController@getAssociatedPlaces');
+Route::get('/{user}/places', 'PlacesController@getAssociatedPlaces');
 Route::resource('places', 'PlacesController');
 Route::get('uploadimages','ImagesController@create');
 
@@ -22,15 +28,15 @@ Route::post('uploadimage', [
    "as" => "uploadimage_path"
 ]);
 
-Route::get('uploadimage',function(){
-
-    return "Hell";
-
-});
 
 Route::get('test', function(){
 
-    Storage::makeDirectory("hello");
+    $places = new App\Place;
+
+    $places = new \Illuminate\Pagination\LengthAwarePaginator($places::all(), $places::count(), 10, 2);
+
+    return view('places.index', ['places' => $places]);
+
 
 });
 

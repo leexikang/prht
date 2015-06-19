@@ -23,7 +23,7 @@ class PlacesTableSeeder extends Seeder
                 'name' => $faker->name,
                 'address' => $faker->address,
                 'description' => $faker->paragraph(2),
-                'state' => $faker->randomElement($city),
+                'state' => "Yangon",
                 'city' => $faker->randomElement($city),
                 'photo' => $faker->randomElement($images) . ".jpg",
                 'user_id' => $faker->randomElement($user)

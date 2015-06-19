@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function places(){
 
-		return $this->hasMany('App\Places');
+		return $this->hasMany('App\Place');
 
 	}
 

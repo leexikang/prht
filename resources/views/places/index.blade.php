@@ -4,41 +4,38 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                @foreach( $places as $place)
-                    <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                {!! Form::open([
+                'method' => 'Get',
+                'class' => 'form-inline'
+                ]) !!}
 
-                        <div class="col-sm-3">
-                            <img src="{{ asset('images/'. $place->photo ) }}" class="img-responsive center-block"/>
-                        </div>
-
-                        <div class="col-sm-8">
-                            <dl class="dl-horizontal">
-                                <dt>Name</dt>
-                                <dd> {{ $place->name }} </dd>
-                                <dt> Address</dt>
-                                <dd> {{ $place->address }} </dd>
-                                <dt> Description</dt>
-                                <dd> {{  $place->description }} </dd>
-                                <dt> City</dt>
-                                <dd> {{ $place->city }} </dd>
-                                <dt> State</dt>
-                                <dd> {{ $place->state }}</dd>
-                                <dt> Creator</dt>
-                                <dd> {{ $place['user']['name'] }}</dd>
-                                <dt></dt>
-                                <dd> <a href="{{url("places/" . $place->id )}}"> <small> READ MORE>> </small> </a> </dd>
-                            </dl>
-                        </div>
-
-                    </div>
-                    <hr/>
-                @endforeach
-                {!! $places->render() !!}
+                <div class="form-group">
+                    {!! Form::label('state', 'State:') !!}
+                    {!! Form::select('state', [
+                    'Yangon' => 'Yangon',
+                    'Mandalay' => 'Mandalay',
+                    'Sagaing' => 'Sagaing'
+                    ], Request::get('state'), ['class' => 'form-control'] ) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('city', 'City:') !!}
+                    {!! Form::select('city', [
+                    'All' => 'All',
+                    'Yangon' => 'Yangon',
+                    'Mandalay' => 'Mandalay',
+                    'Sagaing' => 'Sagaing'
+                    ], Request::get('city'), ['class' => 'form-control', 'disabled'] ) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::submit( 'Search', ['class' => 'btn btn-primary', 'disabled', 'id' => 'search'] ) !!}
+                </div>
+                {!! Form::close() !!}
             </div>
-
-
         </div>
     </div>
+    <br/><br/>
 
+
+    @include('places.showPlaces')
 @stop

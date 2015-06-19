@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\CreatePlaceRequest;
 use App\Repository\PlaceRepository;
@@ -29,10 +30,18 @@ class PlacesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-//		return $this->place->getAll();
-		$places = $this->place->returnWithPaginate(10);
+
+		if( $request->exists("state")){
+
+		$places = $this->place->getByCityAndState($request->all());
+
+		}else
+		{
+		  $places = $this->place->returnWithPaginate();
+		}
+
 		return view('places.index', ['places' => $places ]);
 	}
 
@@ -104,7 +113,7 @@ class PlacesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		return $id;
 	}
 
 	public function updateImage($id, Request $request){
@@ -113,6 +122,12 @@ class PlacesController extends Controller {
 		$this->place->updateImage($id, $request->file('photo'));
 		return Redirect::back();
 
+	}
+
+	public function getAssociatedPlaces(){
+
+		$places = $this->place->getByUserId(Auth::user()->id);
+		return view("users.home", ["places" => $places]);
 	}
 
 }

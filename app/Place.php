@@ -14,5 +14,10 @@ class Place extends Model {
         return $this->hasMany('App\Image');
     }
 
+    public function scopeStateCity($query, $state, $city){
+
+        return $query->where('state', $state)
+            ->where('city', $city);
+    }
 
 }
